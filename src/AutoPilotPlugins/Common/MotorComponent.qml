@@ -43,13 +43,6 @@ SetupPage {
 
             Row {
                 Column {
-
-                    QGCLabel {
-                        id:                         labelThrottle
-                        anchors.horizontalCenter:   parent.horizontalCenter
-                        text:                       qsTr("Throttle") + " " + sliderThrottle.value + " " + qsTr("%")
-                    }
-
                     Row {
                         id:         motorSlider
                         enabled:    safetySwitch.checked
@@ -57,29 +50,27 @@ SetupPage {
                         
                         QGCButton {
                             anchors.verticalCenter:     parent.verticalCenter
-                            id:         minusMinusButton
+                            id:         minusButton
                             text:       qsTr("-")
-                            onClicked: sliderThrottle.value-=1
+                            onClicked: sliderThrottle.setValue(sliderThrottle.value-1)
                         }
 
-                        QGCSlider {
-                            id:                         sliderThrottle
-                            width:                      ScreenTools.defaultFontPixelHeight * _sliderWidth
-                            orientation:                Qt.Horizontal
-                            anchors.verticalCenter:     parent.verticalCenter
-                            from:                       0
-                            to:                         100
-                            stepSize:                   1
-                            value:                      0
-                            live:                       false
-                            displayValue:               true
+                        ValueSlider {
+                            id:                 sliderThrottle
+                            width:              motorButtons.width - minusButton.width - plusButton.width - ScreenTools.defaultFontPixelWidth * 4 * 2
+                            label:              qsTr("Throttle")
+                            from:               0
+                            to:                 100
+                            majorTickStepSize:  5
+                            decimalPlaces: 0
+                            unitsString: qsTr("%")
                         }
 
                         QGCButton {
                             anchors.verticalCenter:     parent.verticalCenter
                             id:         plusButton
                             text:       qsTr("+")
-                            onClicked: sliderThrottle.value+=1
+                            onClicked: sliderThrottle.setValue(sliderThrottle.value+1)
                         }
                     } // Row
                 } // Column
@@ -139,7 +130,7 @@ SetupPage {
                     id: safetySwitch
                     onClicked: {
                         if (!checked) {
-                            sliderThrottle.value = 0
+                            sliderThrottle.setValue(0);
                         }
                     }
                 }
