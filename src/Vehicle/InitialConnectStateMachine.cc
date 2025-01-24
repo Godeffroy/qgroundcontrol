@@ -151,7 +151,7 @@ void InitialConnectStateMachine::_autopilotVersionRequestMessageHandler(void* re
         }
         if (QGCCorePlugin::instance()->options()->checkFirmwareVersion() && !vehicle->_checkLatestStableFWDone) {
             vehicle->_checkLatestStableFWDone = true;
-            vehicle->_firmwarePlugin->checkIfIsLatestStable(vehicle);
+            //vehicle->_firmwarePlugin->checkIfIsLatestStable(vehicle);
         }
         emit vehicle->gitHashChanged(vehicle->_gitHash);
 
